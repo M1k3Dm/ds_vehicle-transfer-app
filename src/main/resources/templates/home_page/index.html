@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+ <h1>
+     <p sec:authorize="!isAuthenticated()">Welcome, login or register to make a transfer!</p>
+     <p sec:authorize="!hasRole('ADMIN') && isAuthenticated()">Get started! Add a vehicle, or make a transfer!</p>
+     <p sec:authorize="hasRole('ADMIN')">User Management</p>
+ </h1>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Form</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div>
+        <h5>Create a vehicle:</h5>
+        <hr>
+    </div>
+<form class="row g-3" th:action="@{/vehicleform}" th:object="${vehicle}" method="post">
+    <div class="form-outline mb-4">
+        <label for="licensePlate" class="form-label">License Plate</label>
+        <input type="text" th:field="*{licensePlate}" id="licensePlate" placeholder="License Plate" class="form-control">
+        <span th:if="${#fields.hasErrors('licensePlate')}" th:errorclass="error-message" th:errors="*{licensePlate}"></span>
+    </div>
+    <div class="form-outline mb-4">
+        <label for="brand" class="form-label">Brand</label>
+        <input type="text" th:field="*{brand}" id="brand" placeholder="Brand" class="form-control">
+        <span th:if="${#fields.hasErrors('brand')}" th:errorclass="error-message" th:errors="*{brand}"></span>
+    </div>
+    <div class="form-outline mb-4">
+        <label for="model"  class="form-label">Model</label>
+        <input type="text" th:field="*{model}" id="model" placeholder="Model" class="form-control">
+        <span th:if="${#fields.hasErrors('model')}" th:errorclass="error-message" th:errors="*{model}"></span>
+    </div>
+    <div class="form-outline mb-4">
+        <label for="type" class="form-label">Type</label>
+        <select th:field="*{type}" id="type" class="form-control">
+            <option value="Passenger">Passenger</option>
+            <option value="Motorcycle">Motorcycle</option>
+        </select>
+        <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+    </div>
+    <div class="form-outline mb-4">
+        <label for="mot" class="form-label">MOT</label>
+        <select th:field="*{mot}" id="mot" class="form-control">
+            <option th:value="true">Yes</option>
+            <option th:value="false">No</option>
+        </select>
+        <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Vehicle</button>
+    <a href="/vehiclelist" class="btn btn-danger">Cancel</a>  </form>
+    </form>
+    <hr>
+</div>
+</body>
+</html>

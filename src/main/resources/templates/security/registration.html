@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div>
+    <h5>Create your account:</h5>
+    <hr>
+  </div>
+  <form class="row g-3" th:action="@{/register}" th:object="${user}" method="post">
+    <div class="form-outline mb-4">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" th:field="*{username}" id="username" placeholder="Username" class="form-control">
+      <span th:if="${#fields.hasErrors('username')}" th:errorclass="error-message" th:errors="*{username}"></span>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" th:field="*{password}" id="password" placeholder="Password" class="form-control">
+      <span th:if="${#fields.hasErrors('password')}" th:errorclass="error-message" th:errors="*{password}"></span>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" th:field="*{email}" id="email" placeholder="Email" class="form-control">
+      <span th:if="${#fields.hasErrors('email')}" th:errorclass="error-message" th:errors="*{email}"></span>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="vat" class="form-label">Vat IN</label>
+      <input type="text" th:field="*{vat}" id="vat" placeholder="VAT identification number" class="form-control">
+      <span th:if="${#fields.hasErrors('vat')}" th:errorclass="error-message" th:errors="*{vat}"></span>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" class="form-control">
+      <span th:if="${#fields.hasErrors('firstName')}" th:errorclass="error-message" th:errors="*{firstName}"></span>
+    </div>
+    <div class="form-outline mb-4">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" class="form-control">
+      <span th:if="${#fields.hasErrors('lastName')}" th:errorclass="error-message" th:errors="*{lastName}"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+  <p>
+  Have an account already? <a th:href="@{/login}">Log in</a>
+  </p>
+</div>
+</body>
+</html>

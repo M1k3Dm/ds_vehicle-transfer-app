@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>header</title>
+</head>
+<body>
+<header class="mb-auto" th:fragment="header">
+    <div>
+        <h3 class="mb-0">Vehicle Transfer App</h3>
+        <nav class="nav nav-masthead justify-content-center float-right">
+            <a class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}" aria-current="page" href="/" th:href="@{/}">Home</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}" href="/login" th:href="@{/login}">Login</a>
+            <a sec:authorize="!isAuthenticated()" class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/register' ? 'active':''}" href="/register" th:href="@{/register}">Register</a>
+            <a sec:authorize="hasRole('USER')"  class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/vehiclelist' ? 'active':''}" aria-current="page" href="/vehiclelist" th:href="@{/vehiclelist}">Vehicle List</a>
+            <a sec:authorize="hasRole('USER')"  class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/transferlist' ? 'active':''}" aria-current="page" href="/transferlist" th:href="@{/transferlist}">Transfer List</a>
+            <a sec:authorize="hasRole('USER')"  class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/transferhistory' ? 'active':''}" aria-current="page" href="/transferhistory" th:href="@{/transferhistory}">Transfer History</a>
+            <a sec:authorize="hasRole('ADMIN')"  class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/userlist' ? 'active':''}" href="/userlist" th:href="@{/userlist}">User List</a>
+            <a sec:authorize="isAuthenticated()" class="nav-link fw-bold py-1 px-0" th:classappend="${#httpServletRequest.getRequestURI() == '/logout' ? 'active':''}" href="/logout" th:href="@{/logout}">Logout</a>
+        </nav>
+    </div>
+</header>
+<hr>
+</body>
+</html>

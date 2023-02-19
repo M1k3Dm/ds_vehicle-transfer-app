@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Transfer Form</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${ not#lists.isEmpty(vehicles)}">
+    <div>
+      <h5>Make a transfer:</h5>
+      <hr>
+    </div>
+    <form class="row g-3" th:action="@{/transferform}" th:object="${transfer}" method="post">
+      <div class="form-outline mb-4">
+        <label for="vehicle" class="form-label">Vehicle</label>
+        <select th:field="*{vehicle}" id="vehicle" class="form-control">
+          <option value="" selected="selected">Choose vehicle</option>
+          <option th:each="v : ${vehicles}" th:value="${v.licensePlate}" th:text="${v.licensePlate}" ></option>
+        </select>
+        <span th:if="${#fields.hasErrors('vehicle')}" th:errorclass="error-message" th:errors="*{vehicle}"></span>
+      </div>
+      <div class="form-outline mb-4">
+        <label for="region" class="form-label">Region</label>
+        <select th:field="*{region}" id="region" class="form-control">
+          <option value="Attica">Attica</option>
+          <option value="Central Greece">Central Greece</option>
+          <option value="Central Macedonia">Central Macedonia</option>
+          <option value="Crete">Crete</option>
+          <option value="Eastern Macedonia and Thrace">Eastern Macedonia and Thrace</option>
+          <option value="Epirus">Epirus</option>
+          <option value="Ionian Islands">Ionian Islands</option>
+          <option value="North Aegean">North Aegean</option>
+          <option value="Peloponnese">Peloponnese</option>
+          <option value="South Aegean">South Aegean</option>
+          <option value="Thessaly">Thessaly</option>
+          <option value="Western Greece">Western Greece</option>
+          <option value="Western Macedonia">Western Macedonia</option>
+        </select>
+        <span th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></span>
+      </div>
+      <div class="form-outline mb-4">
+        <label for="transferTo" class="form-label">Buyer VAT IN</label>
+        <input type="text" th:field="*{transferTo}" id="transferTo" placeholder="Transfer to" class="form-control">
+        <span th:if="${#fields.hasErrors('transferTo')}" th:errorclass="error-message" th:errors="*{transferTo}"></span>
+      </div>
+      <button type="submit" class="btn btn-primary">Make transfer</button>
+      <a href="/vehiclelist" class="btn btn-danger">Cancel</a>  </form>
+    <hr>
+  </div>
+  <div th:if="${#lists.isEmpty(vehicles)}">
+    <p>
+      I'm sorry, it seems that you don't have any vehicles at the moment, add a vehicle to proceed with the transfer.
+    </p>
+    <div>
+      <a href="/vehicleform" class="btn btn-primary">Add Vehicle</a>
+    </div>
+  </div>
+  </div>
+</body>
+</html>

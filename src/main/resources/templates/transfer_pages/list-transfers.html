@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfers</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(transfersFromUser) || not#lists.isEmpty(transfersForUser)}">
+        <div>
+            <h5>User:  <span sec:authentication="name"></span>, Transfer list:</h5>
+            <hr>
+        </div>
+    </div>
+    <div th:if="${ not#lists.isEmpty(transfersForUser)}">
+        <table style="white-space: nowrap"  class="table table-dark table-striped ">
+            <thead>
+            <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Region</th>
+                <th scope="col">From</th>
+                <th scope="col">Status</th>
+                <th scope="col">Vehicle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transfer : ${transfersForUser}">
+                <td th:text="${transfer.transferDateTime}"></td>
+                <td th:text="${transfer.region}"></td>
+                <td th:text="${transfer.owner.firstName + ' ' + transfer.owner.lastName}"></td>
+                <td th:text="${transfer.transferStatus}"></td>
+                <td th:text="${transfer.vehicle.licensePlate}"></td>
+                <td>
+                    <button type="submit" th:id="${transfer.id}"
+                            name="acceptTransfer" class="btn btn-success btn-sm">Accept</button>
+                    <button type="submit" th:id="${transfer.id}"
+                            name="rejectTransfer" class="btn btn-danger btn-sm">Reject</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr style="border: none">
+    <div th:if="${ not#lists.isEmpty(transfersFromUser)}">
+        <table style="white-space: nowrap" class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Region</th>
+                <th scope="col">Transfer to</th>
+                <th scope="col">Status</th>
+                <th scope="col">Vehicle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transfer : ${transfersFromUser}">
+                <td th:text="${transfer.TransferDateTime}"></td>
+                <td th:text="${transfer.region}"></td>
+                <td th:text="${transfer.transferTo}"></td>
+                <td th:text="${transfer.transferStatus}"></td>
+                <td th:text="${transfer.vehicle.licensePlate}"></td>
+                <td>
+                    <button type="submit" th:id="${transfer.id}"
+                            name="cancelTransfer" class="btn btn-danger btn-sm"><i class="remove user icon"></i>Cancel Transfer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(transfersFromUser) && #lists.isEmpty(transfersForUser)}">
+        <p>There is no transfers at the moment.</p>
+    </div>
+    <div>
+        <a href="/transferform" class="btn btn-primary">Make Transfer</a>
+    </div>
+    <script type="text/javascript">
+        $("[name='acceptTransfer']").click(function() {
+            var urlCall = "/transfers/";
+            $.ajax({
+                url : urlCall + $(this).attr('id') + "/accept",
+                type : 'POST',
+                success : function(result) {
+                    console.log(result);
+                    $(location).attr("href", value="/transferlist");
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
+    <script th:src="@{/assets/izitoast/js/iziToast.min.js}"></script>
+    <script type="text/javascript">
+        $("[name='rejectTransfer']").click(function() {
+            var urlCall = "/transfers/";
+            $.ajax({
+                url : urlCall + $(this).attr('id') + "/reject",
+                type : 'POST',
+                success : function(result) {
+
+                    console.log(result);
+                    $(location).attr("href", value="/transferlist");
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("[name='cancelTransfer']").click(function() {
+            var urlCall = "/transfers/";
+            $.ajax({
+                url : urlCall + $(this).attr('id') + "/cancel",
+                type : 'POST',
+                success : function(result) {
+                    console.log(result);
+                    $(location).attr("href", value="/transferlist");
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

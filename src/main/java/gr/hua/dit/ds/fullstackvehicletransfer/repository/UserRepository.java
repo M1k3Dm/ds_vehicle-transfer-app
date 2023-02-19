@@ -1,0 +1,14 @@
+package gr.hua.dit.ds.fullstackvehicletransfer.repository;
+
+import gr.hua.dit.ds.fullstackvehicletransfer.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+    User findByUsername(String username);
+
+    User findByVat(String vat);
+
+    User findByEmail(String email);
+}

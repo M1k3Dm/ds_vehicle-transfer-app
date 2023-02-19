@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+<div layout:fragment="main-content" >
+  <div>
+    <h5>Sign in to Vehicle Transfer App:</h5>
+    <hr>
+  </div>
+  <form class="row g-3" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <div>
+      <label for="username" class="form-label" >Username:</label>
+      <input type="text" id="username" placeholder="Username" class="form-control" th:field="*{username}">
+    </div>
+    <div>
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" id="password" placeholder="Password" class="form-control" th:field="*{password}">
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </form>
+  <p th:if="${param.error}" class="error-message">
+    Invalid username or password. Please try again.
+  </p>
+  <p>
+  Don't have an account? <a th:href="@{/register}">Sign up</a>
+  </p>
+</div>
+</body>
+</html>

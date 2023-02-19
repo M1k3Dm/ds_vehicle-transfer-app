@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer History</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(transfers)}">
+        <div>
+            <h5>User <span sec:authentication="name"></span>, Transfer history:</h5>
+            <hr>
+        </div>
+        <table style="white-space: nowrap"  class="table table-dark table-striped ">
+            <thead>
+            <tr>
+                <th scope="col">Status</th>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Region</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transfer : ${transfers}">
+                <td th:text="${transfer.transferStatus}"></td>
+                <td th:text="${transfer.transferDateTime}"></td>
+                <td th:text="${transfer.region}"></td>
+                <td th:text="${transfer.owner.firstName + ' ' + transfer.owner.lastName}"></td>
+                <td th:text="${transfer.transferTo}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(transfers)}">
+        <p>History is empty.</p>
+    </div>
+    <div>
+        <a href="/transferform" class="btn btn-primary">Make Transfer</a>
+    </div>
+</div>
+</body>
+</html>

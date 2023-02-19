@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{page_layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicles</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(vehicles)}">
+        <div>
+            <h5>User:  <span sec:authentication="name"></span>, Vehicle list:</h5>
+            <hr>
+        </div>
+        <table  class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th scope="col">License Plate</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Type</th>
+                <th scope="col">MOT</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vehicle : ${vehicles}">
+                <td th:text="${vehicle.licensePlate}"></td>
+                <td th:text="${vehicle.brand}"></td>
+                <td th:text="${vehicle.model}"></td>
+                <td th:text="${vehicle.type}"></td>
+                <td th:text="${vehicle.mot == true ? 'Yes' : 'No'}"></td>
+                <td>
+                    <button type="submit" th:id="${vehicle.licensePlate}"
+                            name="deleteVehicle" class="btn btn-danger btn-sm"><i class="remove user icon"></i>Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(vehicles)}">
+        <p>You don't have any vehicles.</p>
+    </div>
+    <div>
+        <a href="/vehicleform" class="btn btn-primary">Add Vehicle</a>
+        <a href="/transferform" class="btn btn-success" th:if="${ not#lists.isEmpty(vehicles)}">Make Transfer</a>
+    </div>
+    <script type="text/javascript">
+        $("[name='deleteVehicle']").click(function() {
+            var urlCall = "/vehicles/";
+            $.ajax({
+                url : urlCall + $(this).attr('id'),
+                type : 'DELETE',
+                success : function(result) {
+                    console.log(result);
+                    $(location).attr("href", value="/vehiclelist");
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
