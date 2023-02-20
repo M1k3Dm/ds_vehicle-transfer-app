@@ -50,5 +50,4 @@ public class VehicleServiceImpl implements VehicleService{
         }
         vehicleRepository.delete(vehicle);
     }
-
 }

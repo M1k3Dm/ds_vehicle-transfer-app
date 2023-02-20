@@ -41,6 +41,9 @@ public class TransferController {
         List<Transfer> transfersForUser = new ArrayList<>();
         for (Transfer tr : transferService.getTransfers()) {
             if (tr.getTransferStatus().equals("Pending")) {
+                if (tr.getOwner() == null) {
+                    continue;
+                }
                 if (tr.getTransferTo().equals(user.getVat()))
                     transfersForUser.add(tr);
                 if (tr.getOwner().equals(user))
