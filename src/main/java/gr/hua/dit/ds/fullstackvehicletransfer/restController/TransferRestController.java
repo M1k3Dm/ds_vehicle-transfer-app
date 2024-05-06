@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.fullstackvehicletransfer.restController;
 
+import gr.hua.dit.ds.fullstackvehicletransfer.service.EmailService;
 import gr.hua.dit.ds.fullstackvehicletransfer.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ public class TransferRestController {
 
     @Autowired
     TransferService transferService;
+    @Autowired
+    EmailService emailService;
 
     @PostMapping("{id}/cancel")
     public void cancelTransfer(@PathVariable Long id) {
@@ -22,6 +25,8 @@ public class TransferRestController {
     @PostMapping("{id}/accept")
     public void acceptTransfer(@PathVariable Long id) {
         transferService.acceptTransfer(id);
+        emailService.sendEmail(id,
+                "Vehicle Transfer Notification", "There is a pending vehicle transfer on your name");
     }
 
     @PostMapping("{id}/reject")
