@@ -6,16 +6,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 git branch: 'master', url: 'git@github.com:M1k3Dm/ds_vehicle-transfer-app.git'
             }
-        }
-        /*stage('Test') {
-            steps {
-                sh './mvnw test'
-            }
-        }  */
+        }*/
+
         stage('run ansible pipeline') {
             steps {
                 build job: 'ansible'
