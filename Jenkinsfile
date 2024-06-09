@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''
                     export ANSIBLE_CONFIG=~/workspace/ansible/ansible.cfg
-                    ansible-playbook -i ~/workspace/ansible/hosts.yaml -l gcloud-db-server ~/workspace/ansible/playbooks/postgres.yaml
+                    ansible-playbook -i ~/workspace/ansible/hosts.yaml -l gcloud-db-server ~/workspace/ansible/playbooks/postgresjenkins.yaml
                 '''
             }
         }
