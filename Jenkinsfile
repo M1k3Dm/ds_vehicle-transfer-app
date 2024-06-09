@@ -2,20 +2,20 @@ pipeline {
     agent any
 
     environment {
-        EMAIL_TO = "it21820@hua.gr"
+        EMAIL_TO = "argirispaok@gmail.com"
     }
 
     stages {
-        /* stage('Checkout') {
+        stage('Checkout') {
             steps {
-                git branch: 'api', url: 'git@github.com:M1k3Dm/ds_vehicle-transfer-app.git'
+                git branch: 'master', url: 'git@github.com:M1k3Dm/ds_vehicle-transfer-app.git'
             }
         }
-        stage('Test') {
+        /*stage('Test') {
             steps {
                 sh './mvnw test'
             }
-        }                           */
+        }  */
         stage('run ansible pipeline') {
             steps {
                 build job: 'ansible'
