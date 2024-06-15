@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        /*stage('Checkout') {
+        stage('Checkout') {
             steps {
                 git branch: 'master', url: 'git@github.com:M1k3Dm/ds_vehicle-transfer-app.git'
             }
-        }*/
+        }
 
         stage('run ansible pipeline') {
             steps {
