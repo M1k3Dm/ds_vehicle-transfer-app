@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  spring-deployment
+  namespace: default
+  labels:
+    app: vta
+spec:
+  selector:
+    matchLabels:
+      app: vta
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vta
+    spec:
+      containers:
+      - name:  vta
+        image:  ghcr.io/argirisdak/vta:latest
+        livenessProbe:
+          httpGet:
+            path: "/actuator/health/liveness"
+            port: 8080
+          failureThreshold: 20
+          periodSeconds: 10
+          initialDelaySeconds: 30
+        readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 8080
+            failureThreshold: 10
+            periodSeconds: 10
+            initialDelaySeconds: 30
+        resources:
+          requests:
+            cpu: 200m
+            memory: 256Mi
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres:5432/appdb
+        - name: SPRING_DATASOURCE_USERNAME
+          value: dbuser
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: pass123
+        ports:
+        - containerPort:  8080
+          name:  vta
+      imagePullSecrets:
+      - name: registry-credentials
