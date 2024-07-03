@@ -5,8 +5,9 @@ pipeline {
         EMAIL_TO = "argirispaok@gmail.com"
     }
 
-    /* stages {
-        stage('Checkout') {
+     stages {
+        
+        /*stage('Checkout') {
             steps {
                 git branch: 'master', url: 'git@github.com:M1k3Dm/ds_vehicle-transfer-app.git'
             }
