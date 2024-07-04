@@ -13,6 +13,6 @@ WORKDIR /ds_vehicle-transfer-app
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
-EXPOSE 8080
+EXPOSE 9090
 COPY --from=builder /ds_vehicle-transfer-app/target/*.jar /ds_vehicle-transfer-app/*.jar
 ENTRYPOINT ["java", "-jar", "/ds_vehicle-transfer-app/*.jar" ]
