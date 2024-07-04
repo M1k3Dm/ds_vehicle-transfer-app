@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         //EMAIL_TO = "argirispaok@gmail.com"
-        DOCKER_TOKEN = credentials('gitkey')
+        DOCKER_TOKEN = credentials('git-key')
         DOCKER_USER = 'argirisdak'
         DOCKER_SERVER = 'ghcr.io'
         DOCKER_PREFIX = 'ghcr.io/argirisdak/vta'
