@@ -4,6 +4,7 @@ metadata:
   labels:
     app: vta
   name: vta
+  namespace: default
 spec:
   ports:
     - port: 8080
