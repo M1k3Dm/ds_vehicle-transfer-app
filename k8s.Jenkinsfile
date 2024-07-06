@@ -23,7 +23,7 @@ pipeline {
                     steps {
                         sh '''
                             export ANSIBLE_CONFIG=~/workspace/ansible/ansible.cfg
-                            ansible-playbook ~/workspace/ansible/playbooks/k8s.yaml -e "appdir=~/workspace/vehicle-transfer-project_k8s"
+                            ansible-playbook ~/workspace/ansible/playbooks/k8s.yaml -e "appdir= ~/workspace/vehicle-transfer-project_k8s"
                         '''
                     }
          }
