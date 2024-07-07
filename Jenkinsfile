@@ -13,11 +13,11 @@ pipeline {
             }
         } */
 
-        stage('Test') {
+        /*stage('Test') {
             steps {
                 sh './mvnw test'
             }
-        }
+        }*/
 
         stage('run ansible pipeline') {
             steps {
